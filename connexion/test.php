@@ -10,8 +10,8 @@
 <body>
 	<?php
 		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
-		$ligne = $sql->fetch();
+		$ligne_utilisateur = $sql->fetch();
 	?>
-	<p>Coucou ! <?php echo $ligne['prenom'].' '.$ligne['nom']  ; ?></p>
+	<p>Coucou ! <?php echo $ligne_utilisateur['prenom'].' '.$ligne_utilisateur['nom']; ?></p>
 </body>
 </html>

@@ -1,10 +1,15 @@
+<?php require 'connexion/connexion.php'; ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portfolio</title>
+<?php
+		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
+		$ligne_utilisateur = $sql->fetch();
+?>
+<title>Portfolio <?php echo $ligne_utilisateur['prenom'].' '.$ligne_utilisateur['nom']; ?></title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="css/bootstrap.css">
@@ -22,7 +27,7 @@
     <hr>
     <div class="row">
       <div class="col-xs-6">
-        <h1>John Doe</h1>
+        <h1><?php echo $ligne_utilisateur['prenom'].' '.$ligne_utilisateur['nom']; ?></h1>
       </div>
       <div class="col-xs-6">
         <p class="text-right"><a href="">Download my Resume <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></p>
