@@ -9,7 +9,7 @@
 		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
 		$ligne_utilisateur = $sql->fetch();
 	?>
-<title>Admin : <?php echo $ligne_utilisateur['pseudo']; ?></title>
+<title>Admin : compétences <?php echo $ligne_utilisateur['pseudo']; ?></title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.css">
@@ -68,58 +68,40 @@
 	$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='1' ");
 $ligne_titre = $sql->fetch();
 	?>
-  <div class="jumbotron">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <h2 class="text-center"><?php echo $ligne_titre['titre_cv']; ?></h2>
-          <p class="text-center"><?php echo $ligne_titre['accroche']; ?></p>
-          <p>&nbsp;</p>
-          <p class="text-center"><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> </p>
-        </div>
-      </div>
-    </div>
-  </div>
 </header>
 <!-- / HEADER --> 
 
 <!--  SECTION-1 -->
 <section>
   <div class="row">
+   <?php
+		$sql = $pdoCV->prepare("SELECT * FROM t_competences WHERE utilisateur_id = '1' "); // prépare la requête
+		$sql->execute(); // exécute-la
+		$nbr_competences = $sql->rowCount(); //compte les lignes
+	 ?>
     <div class="col-lg-12 page-header text-center">
-      <h2>ABOUT US</h2>
+      <h2>COMPÉTENCES</h2>
+      <p>Il y a <?php echo $nbr_competences; ?> compétences dans la table pour <?php echo $ligne_utilisateur['pseudo']; ?></p>
     </div>
   </div>
   <div class="container ">
-    <div class="row">
-      <div class="col-lg-4 col-sm-12 text-center"> <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="../images/140X140.gif" data-holder-rendered="true">
-        <h3>Lorem ipsum</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      </div>
-      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="../images/140X140.gif" data-holder-rendered="true">
-        <h3>Lorem ipsum dolor</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      </div>
-      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="../images/140X140.gif" data-holder-rendered="true">
-        <h3>Lorem ipsum dolor</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      </div>
-      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="../images/140X140.gif" data-holder-rendered="true">
-        <h3>Lorem ipsum</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      </div>
-      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="../images/140X140.gif" data-holder-rendered="true">
-        <h3>Lorem ipsum dolor</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      </div>
-      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="../images/140X140.gif" data-holder-rendered="true">
-        <h3>Lorem ipsum</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      </div>
-    </div>
+    
     <div class="row">
       <div class="col-lg-12 page-header text-center">
-        <h2>TESTIMONIALS</h2>
+        <table class="table">
+  <tbody>
+    <tr>
+      <th scope="col">compétences</th>
+      <th scope="col">supprimer</th>
+    </tr>
+    <tr>
+      <?php while ($ligne_competence = $sql->fetch()) { ?> <td><?php echo $ligne_competence['competence']; ?></td>
+      <td>A faire</td>
+    </tr>
+    <?php } ?>
+  </tbody>
+</table>
+
       </div>
     </div>
     <div class="row">
@@ -211,7 +193,7 @@ $ligne_titre = $sql->fetch();
       <div class="jumbotron">
         <div class="row text-center">
           <div class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h2>Request a free quote</h2>
+            <h2>Insertion d'une compétence</h2>
           </div>
           <div class="text-center col-lg-12"> 
             <!-- CONTACT FORM https://github.com/jonmbake/bootstrap3-contact-form -->
