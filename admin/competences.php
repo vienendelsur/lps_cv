@@ -1,4 +1,25 @@
 <?php require '../connexion/connexion.php' ?>
+<?php 
+	//gestion des contenus
+	//insertion d'une compétence
+		if(isset($_POST['competence'])){//si on récupère une nelle compétence
+			if($_POST['competence']!=''){// si compétence n'est pas vide
+				$competence = addslashes($_POST['competence']);
+				$pdoCV->exec(" INSERT INTO t_competences VALUES (NULL, '$competence', '1') ");//mettre $id_utilisateur quand on l'aura en variable de session
+				header("location: ../admin/competences.php");
+				exit();
+			}//ferme le if
+		}//ferme le if isset
+	
+	//suppression d'une compétence
+		if(isset($_GET['id_competence'])){
+			$efface = $_GET['id_competence'];
+			$sql = " DELETE FROM t_competences WHERE id_competence = '$efface' ";
+			$pdoCV -> query($sql);// ou on peut avec exec
+			header("location: ../admin/competences.php");
+		}
+
+	?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -84,104 +105,54 @@ $ligne_titre = $sql->fetch();
       <p>Il y a <?php echo $nbr_competences; ?> compétences dans la table pour <?php echo $ligne_utilisateur['pseudo']; ?></p>
     </div>
   </div>
-  <div class="container ">
-    
-    <div class="row">
-      <div class="col-lg-12 page-header text-center">
-        <table class="table">
-  <tbody>
-    <tr>
-      <th scope="col">compétences</th>
-      <th scope="col">supprimer</th>
-    </tr>
-    <tr>
-      <?php while ($ligne_competence = $sql->fetch()) { ?> <td><?php echo $ligne_competence['competence']; ?></td>
-      <td>A faire</td>
-    </tr>
-    <?php } ?>
-  </tbody>
-</table>
-
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6 col-lg-6">
-        <blockquote>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-          <small>Someone famous in <cite title="Source Title">Source Title</cite></small> </blockquote>
-      </div>
-      <div class="col-6 col-lg-6">
-        <blockquote>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-          <small>Someone famous in <cite title="Source Title">Source Title</cite></small> </blockquote>
-      </div>
-      <div class="col-6 col-lg-6">
-        <blockquote>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-          <small>Someone famous in <cite title="Source Title">Source Title</cite></small> </blockquote>
-      </div>
-      <div class="col-6 col-lg-6">
-        <blockquote>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-          <small>Someone famous in <cite title="Source Title">Source Title</cite></small> </blockquote>
-      </div>
-    </div>
-    
-  </div>
-  <div class="jumbotron">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-md-9 col-lg-9">
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore, praesentium, autem, veritatis error quidem eos fuga atque asperiores magnam deleniti necessitatibus sequi quo</p>
-        </div>
-        <div class=" text-center col-sm-6 col-lg-3 col-sm-offset-3 col-md-3 col-xs-offset-4 col-xs-5 col-lg-offset-0"> 
-        	<a class="btn  btn-block btn-lg btn-success" href="#" title="">Sign up now!</a> 
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- /container -->
-  
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 page-header text-center">
-        <h2>OUR SERVICES</h2>
+     <div class="col-xs-3">
+     	<p>coucou</p>
+     </div>
+      <div class="col-xs-9 text-center">
+	<table class="table table-striped">
+		<tbody>
+		<tr class="info">
+			<th scope="col">compétences</th>
+			<th scope="col">modifier</th>
+			<th scope="col">supprimer</th>
+		</tr>
+		<tr>
+			<?php while ($ligne_competence = $sql->fetch()) { ?>
+			<td><?php echo $ligne_competence['competence']; ?></td>
+			<td><a href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+			<td>
+<a href="competences.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>">
+			<span class="glyphicon glyphicon-trash"></span></a></span></td>
+		</tr>
+			<?php } ?>
+		</tbody>
+	</table>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-6 col-lg-4">
-        <h3>Feature Description</h3>
-        <p> <i class="icon-desktop "></i>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt impedit est voluptatem doloremque architecto corporis suscipit quidem ratione! Quis laborum nam optio dolorem doloremque ex nobis quibusdam ad quo dolores? </p>
-        <p><a class="btn btn-default" href="http://www.bootstraptor.com">View details »</a></p>
+   
+        <div class="row text-center">
+          <div class="col-xs-3">
+          	re coucou
+          </div>
+          <div class="text-center col-xs-9">
+           <div class="jumbotron"> 
+            <!-- form insertion d'une compétence -->
+            <form action="competences.php" method="post" class="text-center">
+              <div class="form-group">
+                <label for="competence">Compétence</label>
+                <input type="text" name="competence" class="form-control" id="competence" placeholder="insérez une compétence" required>
+              </div>
+              <input type="submit" value="Envoyez" class="btn btn-primary btn-lg" style="margin-top: 10px;">
+            </form>
+            <!-- fin formulaire insertion des compétences --> 
+          </div>
+        </div>
       </div>
-      <div class="col-xs-6 col-lg-4">
-        <h3>Feature Description</h3>
-        <p> <i class="icon-desktop "></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, illo, libero esse assumenda culpa consequatur exercitationem beatae odio praesentium nihil iste ipsum reiciendis pariatur. Recusandae, reiciendis quidem eaque aut ab. </p>
-        <p><a class="btn btn-default" href="http://www.bootstraptor.com">View details »</a></p>
-      </div>
-      <div class="col-xs-6 col-lg-4">
-        <h3>Feature Description</h3>
-        <p> <i class="icon-desktop "></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, adipisci recusandae veniam laudantium distinctio temporibus eveniet dolorum earum iusto veritatis provident ducimus minima dolore quas vel omnis cumque voluptas quibusdam.</p>
-        <p><a class="btn btn-default" href="http://www.bootstraptor.com">View details »</a></p>
-      </div>
-      <div class="col-xs-6 col-lg-4">
-        <h3>Feature Description</h3>
-        <p> <em class="icon-desktop "></em> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, earum rem nostrum provident repellat inventore laborum deleniti quas facere Quasi impedit autem qui cupiditate modi vero vitae dolorum nisi explicabo ea dolores animi. Inventore, omnis.</p>
-        <p><a class="btn btn-default" href="http://www.bootstraptor.com">View details »</a></p>
-      </div>
-      <div class="col-xs-6 col-lg-4">
-        <h3>Feature Description</h3>
-        <p> <i class="icon-desktop "></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, iure, perspiciatis, ab ad quia animi esse repudiandae tempore quisquam dolorem sequi voluptatum qui fugiat. Quasi impedit autem qui cupiditate iusto?</p>
-        <p><a class="btn btn-default" href="http://www.bootstraptor.com">View details »</a></p>
-      </div>
-      <div class="col-xs-6 col-lg-4">
-        <h3>Feature Description</h3>
-        <p> <i class="icon-desktop "></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia, aut, hic laudantium reprehenderit sapiente nemo consequatur corrupti accusantium! Hic, non rerum nihil reprehenderit excepturi explicabo error tempore aliquam eveniet odit.</p>
-        <p><a class="btn btn-default" href="http://www.bootstraptor.com">View details »</a></p>
-      </div>
-    </div>
-  </div>
+  <div class="container">
+  à voir
+</div>
   <!-- / CONTAINER--> 
 </section>
 <div class="well"> </div>
@@ -190,33 +161,7 @@ $ligne_titre = $sql->fetch();
 <div class="container">
   <div class="row">
     <div class="col-lg-offset-3 col-xs-12 col-lg-6">
-      <div class="jumbotron">
-        <div class="row text-center">
-          <div class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h2>Insertion d'une compétence</h2>
-          </div>
-          <div class="text-center col-lg-12"> 
-            <!-- CONTACT FORM https://github.com/jonmbake/bootstrap3-contact-form -->
-            <form role="form" id="feedbackForm" class="text-center">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Name">
-                <span class="help-block" style="display: none;">Please enter your name.</span></div>
-              <div class="form-group">
-                <label for="email">E-Mail</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-                <span class="help-block" style="display: none;">Please enter a valid e-mail address.</span></div>
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea rows="10" cols="100" class="form-control" id="message" name="message" placeholder="Message"></textarea>
-                <span class="help-block" style="display: none;">Please enter a message.</span></div>
-              <span class="help-block" style="display: none;">Please enter a the security code.</span>
-              <button type="submit" id="feedbackSubmit" class="btn btn-primary btn-lg" style=" margin-top: 10px;"> Send</button>
-            </form>
-            <!-- END CONTACT FORM --> 
-          </div>
-        </div>
-      </div>
+      
     </div>
   </div>
 </div>
