@@ -1,25 +1,19 @@
 <?php require '../connexion/connexion.php' ?>
 <?php 
-	//gestion des contenus
-	//insertion d'une compétence
-		if(isset($_POST['competence'])){//si on récupère une nelle compétence
-			if($_POST['competence']!=''){// si compétence n'est pas vide
-				$competence = addslashes($_POST['competence']);
-				$pdoCV->exec(" INSERT INTO t_competences VALUES (NULL, '$competence', '1') ");//mettre $id_utilisateur quand on l'aura en variable de session
-				header("location: ../admin/competences.php");
-				exit();
-			}//ferme le if
-		}//ferme le if isset
+	//gestion des contenus, mise à jour d'une compétence
+	if(isset($_POST['competence'])){// par le nom du premier input
+		$competence =  addslashes($_POST['competence']);
+		$id_competence = $_POST['id_competence'];
+		$pdoCV->exec(" UPDATE t_competences SET competence='$competence' WHERE id_competence='$id_competence' ");
+			 header('location: ../admin/competences.php'); //le header pour revenir à la liste des compétences de l'utilisateur
+        exit();
+	}	
+	//je récupère la compétence
+	$id_competence = $_GET['id_competence']; // par l'id et $_GET
+	$sql = $pdoCV->query("SELECT * FROM t_competences WHERE id_competence = '$id_competence' ");// la requête égale à l'id
+	$ligne_competence = $sql->fetch();  
 	
-	//suppression d'une compétence
-		if(isset($_GET['id_competence'])){
-			$efface = $_GET['id_competence'];
-			$sql = " DELETE FROM t_competences WHERE id_competence = '$efface' ";
-			$pdoCV -> query($sql);// ou on peut avec exec
-			header("location: ../admin/competences.php");
-		}
-
-	?>
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -30,7 +24,7 @@
 		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
 		$ligne_utilisateur = $sql->fetch();
 	?>
-<title>Admin : modification d'une compétence <?php echo $ligne_utilisateur['pseudo']; ?></title>
+<title>Modification d'une compétence : <?php echo $ligne_utilisateur['pseudo']; ?></title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.css">
@@ -95,67 +89,41 @@ $ligne_titre = $sql->fetch();
 <!--  SECTION-1 -->
 <section>
   <div class="row">
-   <?php
-		$sql = $pdoCV->prepare("SELECT * FROM t_competences WHERE utilisateur_id = '1' "); // prépare la requête
-		$sql->execute(); // exécute-la
-		$nbr_competences = $sql->rowCount(); //compte les lignes
-	 ?>
+   
     <div class="col-lg-12 page-header text-center">
-      <h2>COMPÉTENCES</h2>
-      <p>Il y a <?php echo $nbr_competences; ?> compétences dans la table pour <?php echo $ligne_utilisateur['pseudo']; ?></p>
+      <h2>Mise à jour d'une compétence</h2>
     </div>
   </div>
   <div class="container">
-    <div class="row">
-     <div class="col-xs-3">
-     	<p>coucou</p>
-     </div>
-      <div class="col-xs-9 text-center">
-	<table class="table table-striped">
-		<tbody>
-		<tr class="info">
-			<th scope="col">compétences</th>
-			<th scope="col">modifier</th>
-			<th scope="col">supprimer</th>
-		</tr>
-		<tr>
-			<?php while ($ligne_competence = $sql->fetch()) { ?>
-			<td><?php echo $ligne_competence['competence']; ?></td>
-			<td><a href="modif_competence.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
-			<td>
-<a class="supprimer" href="competences.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>">
-			<span class="glyphicon glyphicon-trash"></span></a></span></td>
-		</tr>
-			<?php } ?>
-		</tbody>
-	</table>
-      </div>
-    </div>
-   
+      
         <div class="row text-center">
           <div class="col-xs-3 jumbotron">
-          	<span class="glyphicon glyphicon-road"></span>
+          	<h2><span class="glyphicon glyphicon-send"></span></h2>
           </div>
           <div class="text-center col-xs-9">
            <div class="jumbotron"> 
-            <!-- form insertion d'une compétence -->
-            <form action="competences.php" method="post" class="text-center">
+            <!-- form modification d'une compétence -->
+            <form action="modif_competence.php" method="post" class="text-center">
               <div class="form-group">
-                <label for="competence">Compétence</label>
-                <input type="text" name="competence" class="form-control" id="competence" placeholder="insérez une compétence" required>
+                <label for="competence">Formulaire de mise à jour de la compétence</label>
+                <input type="text" name="competence" class="form-control" value="<?php echo $ligne_competence['competence']; ?>">
+                <input hidden name="id_competence" value="<?php echo $ligne_competence['id_competence']; ?>">
               </div>
-              <input type="submit" value="Envoyez" class="btn btn-primary btn-lg" style="margin-top: 10px;">
+              <input type="submit" value="Mettre à jour" class="btn btn-primary btn-lg" style="margin-top: 10px;">
             </form>
-            <!-- fin formulaire insertion des compétences --> 
+            <!-- fin formulaire modification des compétences --> 
           </div>
         </div>
       </div>
   <div class="container">
-  à voir
+  ... une div class container avec rien
 </div>
+ <div class="row">
+     <hr>
+    </div>
   <!-- / CONTAINER--> 
 </section>
-<div class="well text-center"> ??? </div>
+<div class="well"> </div>
 
 <!-- FOOTER -->
 	<?php include("include_footer.php"); ?>
@@ -164,6 +132,5 @@ $ligne_titre = $sql->fetch();
 <script src="../js/jquery-1.11.3.min.js"></script> 
 <!-- Include all compiled plugins (below), or include individual files as needed --> 
 <script src="../js/bootstrap.js"></script>
-<script src="../js/pisola_js.js"></script>
 </body>
 </html>

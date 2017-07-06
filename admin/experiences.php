@@ -1,22 +1,26 @@
 <?php require '../connexion/connexion.php' ?>
 <?php 
 	//gestion des contenus
-	//insertion d'une compétence
-		if(isset($_POST['competence'])){//si on récupère une nelle compétence
-			if($_POST['competence']!=''){// si compétence n'est pas vide
-				$competence = addslashes($_POST['competence']);
-				$pdoCV->exec(" INSERT INTO t_competences VALUES (NULL, '$competence', '1') ");//mettre $id_utilisateur quand on l'aura en variable de session
-				header("location: ../admin/competences.php");
+	//insertion d'une expérience
+		if(isset($_POST['titre_e'])){//si on récupère une nelle expérience
+			if($_POST['titre_e']!='' && $_POST['description_e']!='' && $_POST['dates_e']!=''){// si expérience et les autres champs ne sont pas vide
+				$titre_e = addslashes($_POST['titre_e']);
+				$sous_titre_e = addslashes($_POST['sous_titre_e']);
+            	$description_e = addslashes($_POST['description_e']);
+            	$dates_e = addslashes($_POST['dates_e']);
+				
+				$pdoCV->exec(" INSERT INTO t_experiences VALUES (NULL, '$titre_e', '$sous_titre_e', '$description_e', '$dates_e', '1') ");//mettre $id_utilisateur quand on l'aura en variable de session
+				header("location: ../admin/experiences.php");
 				exit();
 			}//ferme le if
 		}//ferme le if isset
 	
-	//suppression d'une compétence
-		if(isset($_GET['id_competence'])){
-			$efface = $_GET['id_competence'];
-			$sql = " DELETE FROM t_competences WHERE id_competence = '$efface' ";
+	//suppression d'une expérience
+		if(isset($_GET['id_experience'])){
+			$efface = $_GET['id_experience'];
+			$sql = " DELETE FROM t_experiences WHERE id_experience = '$efface' ";
 			$pdoCV -> query($sql);// ou on peut avec exec
-			header("location: ../admin/competences.php");
+			header("location: ../admin/experiences.php");
 		}
 
 	?>
@@ -30,7 +34,7 @@
 		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
 		$ligne_utilisateur = $sql->fetch();
 	?>
-<title>Admin : modification d'une compétence <?php echo $ligne_utilisateur['pseudo']; ?></title>
+<title>Admin : modification d'une expérience <?php echo $ligne_utilisateur['pseudo']; ?></title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.css">
@@ -96,13 +100,13 @@ $ligne_titre = $sql->fetch();
 <section>
   <div class="row">
    <?php
-		$sql = $pdoCV->prepare("SELECT * FROM t_competences WHERE utilisateur_id = '1' "); // prépare la requête
+		$sql = $pdoCV->prepare("SELECT * FROM t_experiences WHERE utilisateur_id = '1' ORDER BY id_experience DESC "); // prépare la requête
 		$sql->execute(); // exécute-la
-		$nbr_competences = $sql->rowCount(); //compte les lignes
+		$nbr_experiences = $sql->rowCount(); //compte les lignes
 	 ?>
     <div class="col-lg-12 page-header text-center">
-      <h2>COMPÉTENCES</h2>
-      <p>Il y a <?php echo $nbr_competences; ?> compétences dans la table pour <?php echo $ligne_utilisateur['pseudo']; ?></p>
+      <h2>Expériences</h2>
+      <p>Il y a <?php echo $nbr_experiences; ?> expériences dans la table pour <?php echo $ligne_utilisateur['pseudo']; ?></p>
     </div>
   </div>
   <div class="container">
@@ -114,17 +118,21 @@ $ligne_titre = $sql->fetch();
 	<table class="table table-striped">
 		<tbody>
 		<tr class="info">
-			<th scope="col">compétences</th>
+			<th scope="col">Titre</th>
+			<th scope="col">sous-titre</th>
+		  	<th scope="col">description</th>
+		  	<th scope="col">dates</th>
 			<th scope="col">modifier</th>
 			<th scope="col">supprimer</th>
 		</tr>
 		<tr>
-			<?php while ($ligne_competence = $sql->fetch()) { ?>
-			<td><?php echo $ligne_competence['competence']; ?></td>
-			<td><a href="modif_competence.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
-			<td>
-<a class="supprimer" href="competences.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>">
-			<span class="glyphicon glyphicon-trash"></span></a></span></td>
+			<?php while ($ligne_experience = $sql->fetch()) { ?>
+			<td><?php echo $ligne_experience['titre_e']; ?></td>
+			<td><?php echo $ligne_experience['sous_titre_e']; ?></td>
+			<td><?php echo $ligne_experience['description_e']; ?></td>
+			<td><?php echo $ligne_experience['dates_e']; ?></td>
+			<td><a href="modif_experience.php?id_experience=<?php echo $ligne_experience['id_experience']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+			<td><a class="supprimer" href="experiences.php?id_experience=<?php echo $ligne_experience['id_experience']; ?>"><span class="glyphicon glyphicon-trash"></span></a></span></td>
 		</tr>
 			<?php } ?>
 		</tbody>
@@ -138,15 +146,21 @@ $ligne_titre = $sql->fetch();
           </div>
           <div class="text-center col-xs-9">
            <div class="jumbotron"> 
-            <!-- form insertion d'une compétence -->
-            <form action="competences.php" method="post" class="text-center">
+            <!-- form insertion d'une expérience -->
+            <form action="experiences.php" method="post" class="text-center">
               <div class="form-group">
-                <label for="competence">Compétence</label>
-                <input type="text" name="competence" class="form-control" id="competence" placeholder="insérez une compétence" required>
+                <label for="titre_e">Titre de l'expérience</label>
+                <input type="text" name="titre_e" class="form-control" id="titre_e" placeholder="insérez une expérience">
+                <label for="sous_titre_e">Sous-titre</label>
+                <input type="text" name="sous_titre_e" class="form-control" id="sous_titre_e" placeholder="le sous-titre est facultatif">
+                <label for="dates_e">Dates</label>
+                <input type="text" name="dates_e" class="form-control" id="dates_e" placeholder="dates de début et de fin">
+                <label for="description_e">Description</label>
+                <textarea name="description_e" cols="80" rows="4" class="form-control" id="description_e" placeholder="description de l'expérience"></textarea>
               </div>
               <input type="submit" value="Envoyez" class="btn btn-primary btn-lg" style="margin-top: 10px;">
             </form>
-            <!-- fin formulaire insertion des compétences --> 
+            <!-- fin formulaire insertion des expériences --> 
           </div>
         </div>
       </div>

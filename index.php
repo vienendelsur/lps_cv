@@ -39,8 +39,13 @@
         <div class="media">
           <div class="media-left"> <a href="#"> <img class="media-object img-rounded" src="images/115X115.gif" alt="..."> </a> </div>
           <div class="media-body">
-            <h2 class="media-heading">Web Developer</h2>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, neque, in, accusamus optio architecto debitis dolor animi placeat ut ab corporis laboriosam itaque. Nobis, sapiente quo dolorum ut quod possimus doloremque suscipit ad doloribus quam dolor </div>
+           <?php 
+			  
+		$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='1' ");
+		$ligne_titre_cv = $sql->fetch(); 
+			  ?>
+            <h2 class="media-heading"><?php echo $ligne_titre_cv['titre_cv']; ?></h2>
+            <?php echo $ligne_titre_cv['accroche']; ?></div>
         </div>
       </div>
       <div class="col-xs-5 well">

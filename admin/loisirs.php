@@ -1,22 +1,22 @@
 <?php require '../connexion/connexion.php' ?>
 <?php 
 	//gestion des contenus
-	//insertion d'une compétence
-		if(isset($_POST['competence'])){//si on récupère une nelle compétence
-			if($_POST['competence']!=''){// si compétence n'est pas vide
-				$competence = addslashes($_POST['competence']);
-				$pdoCV->exec(" INSERT INTO t_competences VALUES (NULL, '$competence', '1') ");//mettre $id_utilisateur quand on l'aura en variable de session
-				header("location: ../admin/competences.php");
+	//insertion d'un loisir
+		if(isset($_POST['loisir'])){//si on récupère un nouveau loisir
+			if($_POST['loisir']!=''){// si loisir n'est pas vide
+				$loisir = addslashes($_POST['loisir']);
+				$pdoCV->exec(" INSERT INTO t_loisirs VALUES (NULL, '$loisir', '1') ");//mettre $id_utilisateur quand on l'aura en variable de session
+				header("location: ../admin/loisirs.php");
 				exit();
 			}//ferme le if
 		}//ferme le if isset
 	
-	//suppression d'une compétence
-		if(isset($_GET['id_competence'])){
-			$efface = $_GET['id_competence'];
-			$sql = " DELETE FROM t_competences WHERE id_competence = '$efface' ";
+	//suppression d'un loisir
+		if(isset($_GET['id_loisir'])){
+			$efface = $_GET['id_loisir'];
+			$sql = " DELETE FROM t_loisirs WHERE id_loisir = '$efface' ";
 			$pdoCV -> query($sql);// ou on peut avec exec
-			header("location: ../admin/competences.php");
+			header("location: ../admin/loisirs.php");
 		}
 
 	?>
@@ -30,7 +30,7 @@
 		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
 		$ligne_utilisateur = $sql->fetch();
 	?>
-<title>Admin : modification d'une compétence <?php echo $ligne_utilisateur['pseudo']; ?></title>
+<title>Admin : modification d'une loisir <?php echo $ligne_utilisateur['pseudo']; ?></title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.css">
@@ -96,35 +96,34 @@ $ligne_titre = $sql->fetch();
 <section>
   <div class="row">
    <?php
-		$sql = $pdoCV->prepare("SELECT * FROM t_competences WHERE utilisateur_id = '1' "); // prépare la requête
+		$sql = $pdoCV->prepare("SELECT * FROM t_loisirs WHERE utilisateur_id = '1' "); // prépare la requête
 		$sql->execute(); // exécute-la
-		$nbr_competences = $sql->rowCount(); //compte les lignes
+		$nbr_loisirs = $sql->rowCount(); //compte les lignes
 	 ?>
     <div class="col-lg-12 page-header text-center">
-      <h2>COMPÉTENCES</h2>
-      <p>Il y a <?php echo $nbr_competences; ?> compétences dans la table pour <?php echo $ligne_utilisateur['pseudo']; ?></p>
+      <h2>LOISIRS</h2>
+      <p>Il y a <?php echo $nbr_loisirs; ?> loisirs dans la table pour <?php echo $ligne_utilisateur['pseudo']; ?></p>
     </div>
   </div>
   <div class="container">
     <div class="row">
-     <div class="col-xs-3">
-     	<p>coucou</p>
+     <div class="col-xs-3 jumbotron text-center">
+     	<span class="glyphicon glyphicon-cutlery"></span>
      </div>
       <div class="col-xs-9 text-center">
 	<table class="table table-striped">
 		<tbody>
 		<tr class="info">
-			<th scope="col">compétences</th>
+			<th scope="col">loisirs</th>
 			<th scope="col">modifier</th>
 			<th scope="col">supprimer</th>
 		</tr>
 		<tr>
-			<?php while ($ligne_competence = $sql->fetch()) { ?>
-			<td><?php echo $ligne_competence['competence']; ?></td>
-			<td><a href="modif_competence.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+			<?php while ($ligne_loisir = $sql->fetch()) { ?>
+			<td><?php echo $ligne_loisir['loisir']; ?></td>
+			<td><a href="modif_loisir.php?id_loisir=<?php echo $ligne_loisir['id_loisir']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
 			<td>
-<a class="supprimer" href="competences.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>">
-			<span class="glyphicon glyphicon-trash"></span></a></span></td>
+<a class="supprimer" href="loisirs.php?id_loisir=<?php echo $ligne_loisir['id_loisir']; ?>"></a></span></td>
 		</tr>
 			<?php } ?>
 		</tbody>
@@ -134,19 +133,19 @@ $ligne_titre = $sql->fetch();
    
         <div class="row text-center">
           <div class="col-xs-3 jumbotron">
-          	<span class="glyphicon glyphicon-road"></span>
+          	
           </div>
           <div class="text-center col-xs-9">
            <div class="jumbotron"> 
-            <!-- form insertion d'une compétence -->
-            <form action="competences.php" method="post" class="text-center">
+            <!-- form insertion d'un loisir -->
+            <form action="loisirs.php" method="post" class="text-center">
               <div class="form-group">
-                <label for="competence">Compétence</label>
-                <input type="text" name="competence" class="form-control" id="competence" placeholder="insérez une compétence" required>
+                <label for="loisir">Loisir</label>
+                <input type="text" name="loisir" class="form-control" id="loisir" placeholder="insérez un loisir" required>
               </div>
               <input type="submit" value="Envoyez" class="btn btn-primary btn-lg" style="margin-top: 10px;">
             </form>
-            <!-- fin formulaire insertion des compétences --> 
+            <!-- fin formulaire insertion d'un loisir --> 
           </div>
         </div>
       </div>
