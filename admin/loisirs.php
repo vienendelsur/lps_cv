@@ -5,7 +5,7 @@
 		if(isset($_POST['loisir'])){//si on récupère un nouveau loisir
 			if($_POST['loisir']!=''){// si loisir n'est pas vide
 				$loisir = addslashes($_POST['loisir']);
-				$pdoCV->exec(" INSERT INTO t_loisirs VALUES (NULL, '$loisir', '1') ");//mettre $id_utilisateur quand on l'aura en variable de session
+				$pdoCV->exec(" INSERT INTO t_loisirs VALUES (NULL, '$loisir', '$id_utilisateur') ");//mettre $id_utilisateur quand on l'aura en variable de session
 				header("location: ../admin/loisirs.php");
 				exit();
 			}//ferme le if
@@ -27,7 +27,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php
-		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
+		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='$id_utilisateur' ");
 		$ligne_utilisateur = $sql->fetch();
 	?>
 <title>Admin : modification d'une loisir <?php echo $ligne_utilisateur['pseudo']; ?></title>
@@ -86,7 +86,7 @@
 <!-- HEADER -->
 <header>
  <?php 
-	$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='1' ");
+	$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='$id_utilisateur' ");
 $ligne_titre = $sql->fetch();
 	?>
 </header>
@@ -96,7 +96,7 @@ $ligne_titre = $sql->fetch();
 <section>
   <div class="row">
    <?php
-		$sql = $pdoCV->prepare("SELECT * FROM t_loisirs WHERE utilisateur_id = '1' "); // prépare la requête
+		$sql = $pdoCV->prepare("SELECT * FROM t_loisirs WHERE utilisateur_id = '$id_utilisateur' "); // prépare la requête
 		$sql->execute(); // exécute-la
 		$nbr_loisirs = $sql->rowCount(); //compte les lignes
 	 ?>

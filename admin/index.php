@@ -1,6 +1,5 @@
 <?php require '../connexion/connexion.php' ?>
-<?php
-	
+<?php	
 session_start();// à mettre dans toutes les pages de l'admin ; SESSION et authentification
 	if(isset($_SESSION['connexion']) && $_SESSION['connexion']=='connecté'){
 		$id_utilisateur=$_SESSION['id_utilisateur'];
@@ -12,9 +11,17 @@ session_start();// à mettre dans toutes les pages de l'admin ; SESSION et authe
 	}else{//l'utilisateur n'est pas connecté
 		header('location:authentification.php');
 	}
-
-
+//pour se déconnecter
+if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
 	
+	$_SESSION['connexion']='';// on vide les variables de session
+	$_SESSION['id_utilisateur']='';
+	$_SESSION['prenom']='';
+	$_SESSION['nom']='';
+		unset($_SESSION['connexion']);
+		session_destroy();
+	header('location:../index.php');
+}
 	?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,7 +49,7 @@ session_start();// à mettre dans toutes les pages de l'admin ; SESSION et authe
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand" href="index.php">Admin : <?php echo $ligne_utilisateur['prenom']; ?></a> </div>
+      <a class="navbar-brand" href="index.php">Admin : <?php echo $ligne_utilisateur['pseudo']; ?></a> </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -77,10 +84,11 @@ session_start();// à mettre dans toutes les pages de l'admin ; SESSION et authe
   <!-- /.container-fluid --> 
 </nav>
 
+
 <!-- HEADER -->
 <header>
  <?php 
-	$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='1' ");
+	$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='$id_utilisateur' ");
 $ligne_titre = $sql->fetch();
 	?>
   <div class="jumbotron">

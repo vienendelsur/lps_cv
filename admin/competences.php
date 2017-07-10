@@ -1,11 +1,39 @@
 <?php require '../connexion/connexion.php' ?>
-<?php 
+<?php
+	
+session_start();// à mettre dans toutes les pages de l'admin ; SESSION et authentification
+	if(isset($_SESSION['connexion']) && $_SESSION['connexion']=='connecté'){
+		$id_utilisateur=$_SESSION['id_utilisateur'];
+		$prenom=$_SESSION['prenom'];	
+		$nom=$_SESSION['nom'];
+		
+		//echo $_SESSION['connexion'];
+		
+	}else{//l'utilisateur n'est pas connecté
+		header('location:authentification.php');
+	}
+//pour se déconnecter
+if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
+	
+	$_SESSION['connexion']='';// on vide les variables de session
+	$_SESSION['id_utilisateur']='';
+	$_SESSION['prenom']='';
+	$_SESSION['nom']='';
+	
+	unset($_SESSION['connexion']);
+	session_destroy();
+	
+	header('location:../index.php');
+}
+
+	?>
+	<?php 
 	//gestion des contenus
 	//insertion d'une compétence
 		if(isset($_POST['competence'])){//si on récupère une nelle compétence
 			if($_POST['competence']!=''){// si compétence n'est pas vide
 				$competence = addslashes($_POST['competence']);
-				$pdoCV->exec(" INSERT INTO t_competences VALUES (NULL, '$competence', '1') ");//mettre $id_utilisateur quand on l'aura en variable de session
+				$pdoCV->exec(" INSERT INTO t_competences VALUES (NULL, '$competence', '$id_utilisateur') ");//mettre $id_utilisateur quand on l'aura en variable de session
 				header("location: ../admin/competences.php");
 				exit();
 			}//ferme le if
@@ -27,7 +55,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php
-		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
+		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='$id_utilisateur' ");
 		$ligne_utilisateur = $sql->fetch();
 	?>
 <title>Admin : modification d'une compétence <?php echo $ligne_utilisateur['pseudo']; ?></title>
@@ -86,7 +114,7 @@
 <!-- HEADER -->
 <header>
  <?php 
-	$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='1' ");
+	$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='$id_utilisateur' ");
 $ligne_titre = $sql->fetch();
 	?>
 </header>
@@ -96,7 +124,7 @@ $ligne_titre = $sql->fetch();
 <section>
   <div class="row">
    <?php
-		$sql = $pdoCV->prepare("SELECT * FROM t_competences WHERE utilisateur_id = '1' "); // prépare la requête
+		$sql = $pdoCV->prepare("SELECT * FROM t_competences WHERE utilisateur_id = '$id_utilisateur' "); // prépare la requête
 		$sql->execute(); // exécute-la
 		$nbr_competences = $sql->rowCount(); //compte les lignes
 	 ?>
