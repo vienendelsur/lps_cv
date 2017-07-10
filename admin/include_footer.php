@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-offset-3 col-xs-12 col-lg-6  text-center">
-      ??? VOIR
+      A VOIR
     </div>
   </div>
 </div>
@@ -9,7 +9,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <p>Copyright © <?php echo $ligne_utilisateur['pseudo']; ?>. Tous droits réservés</p>
+        <p>Copyright © <?php echo $ligne_utilisateur['pseudo']; ?>. Tous droits réservés hé hé</p>
         <hr>
       </div>
     </div>

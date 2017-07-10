@@ -96,19 +96,19 @@ $ligne_titre = $sql->fetch();
   </div>
   <div class="container">
       
-        <div class="row text-center">
+<div class="row text-center">
           <div class="col-xs-3 jumbotron">
-          	<h2><span class="glyphicon glyphicon-send"></span></h2>
-          </div>
+          	<h1><span class="glyphicon glyphicon-send"></span></h1>
+  </div>
           <div class="text-center col-xs-9">
            <div class="jumbotron"> 
             <!-- form modification d'une expérience -->
             <form action="modif_experience.php" method="post" class="text-center">
-              <div class="form-group">
-                <label for="titre_e">Formulaire de mise à jour d'une expérience'</label>
-                <input type="text" name="titre_e" class="form-control" value="<?php echo $ligne_experience['titre_e']; ?>">
-                <input hidden name="id_experience" value="<?php echo $ligne_experience['id_experience']; ?>">
-              </div>
+		<div class="form-group">
+			<label for="titre_e">Formulaire de mise à jour d'une expérience'</label>
+			<input type="text" name="titre_e" class="form-control" value="<?php echo $ligne_experience['titre_e']; ?>">
+			<input hidden name="id_experience" value="<?php echo $ligne_experience['id_experience']; ?>">
+		</div>
               <input type="submit" value="Mettre à jour" class="btn btn-primary btn-lg" style="margin-top: 10px;">
             </form>
             <!-- fin formulaire modification des compétences --> 
