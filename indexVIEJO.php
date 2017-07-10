@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
@@ -25,7 +25,6 @@
     <![endif]-->
 </head>
 <body>
-
   <div class="container">
     <hr>
     <div class="row">
@@ -33,11 +32,15 @@
         <h1><?php echo $ligne_utilisateur['prenom'].' '.$ligne_utilisateur['nom']; ?></h1>
       </div>
       <div class="col-xs-6">
-        <p class="text-right"><a href="">Download my Resume <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></p>
+        <p class="text-right"><a href="#">Télécharger mon cv<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></p>
       </div>
     </div>
     <hr>
     <div class="row">
+    <?php 
+		$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='1' ");
+		$ligne_titre_cv = $sql->fetch(); 
+	?>
       <div class="col-xs-7">
         <div class="media">
           <div class="media-left"> <a href="#"> <img class="media-object img-rounded" src="images/115X115.gif" alt="..."> </a> </div>
@@ -50,18 +53,34 @@
       <div class="col-xs-5 well">
         <div class="row">
           <div class="col-lg-6">
-            <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> : 123-456-7890</h4>
+            <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> <?php echo $ligne_utilisateur['telephone']; ?></h4>
           </div>
           <div class="col-lg-6">
-            <h4><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> : john@example.com</h4>
+            <h5><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> :  <?php echo $ligne_utilisateur['email']; ?></h5>
+
+          </div>
+          <div class="col-lg-6">
+            <h4><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> : <a href="mailto:<?php echo $ligne_utilisateur['email']; ?>"><?php echo $ligne_utilisateur['email']; ?></a></h4>
+<<<<<<< HEAD
+>>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
+=======
+>>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
           </div>
         </div>
         <div class="row">
           <div class="col-lg-6">
-            <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> : San Francisco, CA</h4>
+<<<<<<< HEAD
+<<<<<<< HEAD
+            <h5><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> :  <?php echo $ligne_utilisateur['adresse'].'<br>'.$ligne_utilisateur['code_postal'].' '.$ligne_utilisateur['ville']; ?></h5>
           </div>
           <div class="col-lg-6">
             <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> : 123-456-7890</h4>
+=======
+            <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> : <?php echo $ligne_utilisateur['adresse'].' '.$ligne_utilisateur['code_postal'].' '.$ligne_utilisateur['ville']; ?></h4>
+>>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
+=======
+            <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> : <?php echo $ligne_utilisateur['adresse'].' '.$ligne_utilisateur['code_postal'].' '.$ligne_utilisateur['ville']; ?></h4>
+>>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
           </div>
         </div>
       </div>
