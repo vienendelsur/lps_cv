@@ -1,4 +1,21 @@
 <?php require '../connexion/connexion.php' ?>
+<?php
+	
+session_start();// à mettre dans toutes les pages de l'admin ; SESSION et authentification
+	if(isset($_SESSION['connexion']) && $_SESSION['connexion']=='connecté'){
+		$id_utilisateur=$_SESSION['id_utilisateur'];
+		$prenom=$_SESSION['prenom'];	
+		$nom=$_SESSION['nom'];
+		
+		//echo $_SESSION['connexion'];
+		
+	}else{//l'utilisateur n'est pas connecté
+		header('location:authentification.php');
+	}
+
+
+	
+	?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,7 +23,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php
-		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
+		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='$id_utilisateur' ");
 		$ligne_utilisateur = $sql->fetch();
 	?>
 <title>Admin : <?php echo $ligne_utilisateur['pseudo']; ?></title>
@@ -25,7 +42,7 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand" href="index.php">Admin : <?php echo $ligne_utilisateur['pseudo']; ?></a> </div>
+      <a class="navbar-brand" href="index.php">Admin : <?php echo $ligne_utilisateur['prenom']; ?></a> </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

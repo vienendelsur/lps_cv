@@ -2,10 +2,14 @@
 <?php 
 	//gestion des contenus, mise à jour d'une compétence
 	if(isset($_POST['titre_e'])){// par le nom du premier input
-		$titre_e =  addslashes($_POST['titre_e']);
+		
+		$titre_e = addslashes($_POST['titre_e']);
+		$dates_e = addslashes($_POST['dates_e']);
+		$sous_titre_e = addslashes($_POST['sous_titre_e']);
+		$description_e = addslashes($_POST['description_e']);
 		$id_experience = $_POST['id_experience'];
-		$pdoCV->exec(" UPDATE t_experiences SET titre_e='$titre_e' WHERE id_competence='$id_competence' ");
-			 header('location: ../admin/competences.php'); //le header pour revenir à la liste des compétences de l'utilisateur
+		$pdoCV->exec(" UPDATE t_experiences SET titre_e='$titre_e', sous_titre_e='$sous_titre_e', dates_e='$dates_e', description_e='$description_e' WHERE id_experience='$id_experience' ");
+			 header('location: ../admin/experiences.php'); //le header pour revenir à la liste des compétences de l'utilisateur
         exit();
 	}	
 	//je récupère la compétence
@@ -105,8 +109,14 @@ $ligne_titre = $sql->fetch();
             <!-- form modification d'une expérience -->
             <form action="modif_experience.php" method="post" class="text-center">
 		<div class="form-group">
-			<label for="titre_e">Formulaire de mise à jour d'une expérience'</label>
+			<label for="titre_e">Titre de l'expérience</label>
 			<input type="text" name="titre_e" class="form-control" value="<?php echo $ligne_experience['titre_e']; ?>">
+			<label for="dates_e">Dates</label>
+			<input type="text" name="dates_e" class="form-control" value="<?php echo $ligne_experience['dates_e']; ?>">
+			<label for="sous_titres_e">sous-titre</label>
+			<input type="text" name="sous_titre_e" class="form-control" value="<?php echo $ligne_experience['sous_titre_e']; ?>">
+			<label for="description_e">Description</label>
+			<textarea name="description_e" cols="80" rows="10" maxlength="200" id="description_e"><?php echo $ligne_experience['description_e']; ?></textarea>
 			<input hidden name="id_experience" value="<?php echo $ligne_experience['id_experience']; ?>">
 		</div>
               <input type="submit" value="Mettre à jour" class="btn btn-primary btn-lg" style="margin-top: 10px;">
