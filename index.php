@@ -31,7 +31,11 @@
       </div>
       <div class="col-xs-6">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <p class="text-right"><a href="#">Télécharger mon cv<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></p>
+=======
+        <p class="text-right"><a href="docs/cv_isola_2016.pdf">Téléchargez mon CV <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></p>
+>>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
 =======
         <p class="text-right"><a href="docs/cv_isola_2016.pdf">Téléchargez mon CV <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></p>
 >>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
@@ -56,25 +60,35 @@
         <div class="row">
           <div class="col-lg-6">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> <?php echo $ligne_utilisateur['telephone']; ?></h4>
           </div>
           <div class="col-lg-6">
             <h5><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> :  <?php echo $ligne_utilisateur['email']; ?></h5>
 =======
+=======
+>>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
             <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> : <?php echo $ligne_utilisateur['telephone']; ?></h4>
           </div>
           <div class="col-lg-6">
             <h4><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> : <a href="mailto:<?php echo $ligne_utilisateur['email']; ?>"><?php echo $ligne_utilisateur['email']; ?></a></h4>
+<<<<<<< HEAD
+>>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
+=======
 >>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
           </div>
         </div>
         <div class="row">
           <div class="col-lg-6">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <h5><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> :  <?php echo $ligne_utilisateur['adresse'].'<br>'.$ligne_utilisateur['code_postal'].' '.$ligne_utilisateur['ville']; ?></h5>
           </div>
           <div class="col-lg-6">
             <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> : 123-456-7890</h4>
+=======
+            <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> : <?php echo $ligne_utilisateur['adresse'].' '.$ligne_utilisateur['code_postal'].' '.$ligne_utilisateur['ville']; ?></h4>
+>>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
 =======
             <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> : <?php echo $ligne_utilisateur['adresse'].' '.$ligne_utilisateur['code_postal'].' '.$ligne_utilisateur['ville']; ?></h4>
 >>>>>>> ffa012781d4a58e6a2ee0c1d6337c521dc1c40e4
