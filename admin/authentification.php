@@ -29,7 +29,7 @@ if(isset($_POST['connexion'])){// on envoie le form avec le name du bouton (on a
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Admin : </title>
+<title>Admin : Patrick Isola</title>
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.css">
 <link rel="stylesheet" href="../css/style_pisola.css">

@@ -6,10 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
-		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='$id_utilisateur' ");
+		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
 		$ligne_utilisateur = $sql->fetch();
 
-		$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='$id_utilisateur' ");
+		$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='1' ");
 		$ligne_titre_cv = $sql->fetch(); 
 ?>
 <title>Portfolio <?php echo $ligne_utilisateur['prenom'].' '.$ligne_utilisateur['nom']; ?></title>
@@ -25,7 +25,6 @@
     <![endif]-->
 </head>
 <body>
-
   <div class="container">
     <hr>
     <div class="row">
@@ -217,7 +216,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <p>Copyright © MyWebsite. All rights reserved.</p>
+        <p>Copyright © Patrick Isola - Tous droits réservés</p>
         <p><a href="admin/index.php">Espace privé</a></p>
       </div>
     </div>

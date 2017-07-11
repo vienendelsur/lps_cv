@@ -34,10 +34,10 @@ if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
 			if($_POST['titre_e']!='' && $_POST['description_e']!='' && $_POST['dates_e']!=''){// si expérience et les autres champs ne sont pas vide
 				$titre_e = addslashes($_POST['titre_e']);
 				$sous_titre_e = addslashes($_POST['sous_titre_e']);
-            	$description_e = addslashes($_POST['description_e']);
             	$dates_e = addslashes($_POST['dates_e']);
+            	$description_e = addslashes($_POST['description_e']);
 				
-				$pdoCV->exec(" INSERT INTO t_experiences VALUES (NULL, '$titre_e', '$sous_titre_e', '$description_e', '$dates_e', '$id_utilisateur') ");//mettre $id_utilisateur quand on l'aura en variable de session
+				$pdoCV->exec(" INSERT INTO t_experiences VALUES (NULL, '$titre_e', '$sous_titre_e',  '$dates_e', '$description_e', '$id_utilisateur') ");//mettre $id_utilisateur quand on l'aura en variable de session
 				header("location: ../admin/experiences.php");
 				exit();
 			}//ferme le if
@@ -63,7 +63,8 @@ if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
 		$ligne_utilisateur = $sql->fetch();
 	?>
 <title>Admin : modification d'une expérience <?php echo $ligne_utilisateur['pseudo']; ?></title>
-
+<!--CKEditor-->
+<script src="//cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.css">
 
@@ -185,6 +186,9 @@ $ligne_titre = $sql->fetch();
                 <input type="text" name="dates_e" class="form-control" id="dates_e" placeholder="dates de début et de fin">
                 <label for="description_e">Description</label>
                 <textarea name="description_e" cols="80" rows="4" class="form-control" id="description_e" placeholder="description de l'expérience"></textarea>
+                <script>
+            		CKEDITOR.replace( 'description_e' );
+        		</script>
               </div>
               <input type="submit" value="Envoyez" class="btn btn-primary btn-lg" style="margin-top: 10px;">
             </form>

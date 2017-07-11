@@ -8,8 +8,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a> </li>
-        <li><a href="#">Link</a> </li>
+        <li class="active"><a href="#">Voir <span class="sr-only">(current)</span></a> </li>
+        <li><a href="#">Voir</a> </li>
       </ul>
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
@@ -18,7 +18,7 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a> </li>
+        <li><a href="#">Voir</a> </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Insertions <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="competences.php">Compétences</a> </li>
@@ -28,10 +28,10 @@
             <li><a href="loisirs.php">Loisirs</a> </li>
             <li><a href="realisations.php">Réalisations</a> </li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Déconnexion</a> </li>
+            <li><a href="#">Voir</a> </li>
           </ul>
         </li>
-         <li><a href="index.php?quitter=oui">Déconnexion</a></li>
+            <li><a href="index.php?quitter=oui">Déconnexion</a> </li>
       </ul>
     </div>
     <!-- /.navbar-collapse --> 
