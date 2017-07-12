@@ -32,14 +32,14 @@
         <h1><?php echo $ligne_utilisateur['prenom'].' '.$ligne_utilisateur['nom']; ?></h1>
       </div>
       <div class="col-xs-6">
-        <p class="text-right"><a href="">Download my Resume <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a></p>
+        <p class="text-right"><a href="docs/cv_isola_2016.pdf" target="_blank">Mon Cv papier</a> <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></p>
       </div>
     </div>
     <hr>
     <div class="row">
       <div class="col-xs-7">
         <div class="media">
-          <div class="media-left"> <a href="#"> <img class="media-object img-rounded" src="images/115X115.gif" alt="..."> </a> </div>
+          <div class="media-left"> <a href="#"> <img src="images/<?php echo $ligne_utilisateur['avatar']; ?>" alt="..." width="150" height="150" class="media-object img-rounded"> </a> </div>
           <div class="media-body">
             <h2 class="media-heading"><?php echo $ligne_titre_cv['titre_cv']; ?></h2>
             <h4><?php echo $ligne_titre_cv['accroche']; ?></h4>
@@ -49,18 +49,18 @@
       <div class="col-xs-5 well">
         <div class="row">
           <div class="col-lg-6">
-            <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> : 123-456-7890</h4>
+            <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> <?php echo $ligne_utilisateur['telephone']; ?></h4>
           </div>
           <div class="col-lg-6">
-            <h4><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> : john@example.com</h4>
+            <h4><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <?php echo $ligne_utilisateur['email']; ?></h4>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-6">
-            <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> : San Francisco, CA</h4>
+            <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <?php echo $ligne_utilisateur['adresse'].' '.$ligne_utilisateur['code_postal'].' '.$ligne_utilisateur['ville']; ?></h4>
           </div>
           <div class="col-lg-6">
-            <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> : 123-456-7890</h4>
+            <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> 123-456-7890</h4>
           </div>
         </div>
       </div>

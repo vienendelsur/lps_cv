@@ -95,9 +95,9 @@ $ligne_titre = $sql->fetch();
     </div>
   </div>
   <div class="container">
-    <div class="row">
-     <div class="col-xs-3">
-     	<p>coucou</p>
+    <div class="row text-center">
+     <div class="col-xs-3 jumbotron">
+          	<span class="glyphicon glyphicon-road"></span>
      </div>
       <div class="col-xs-9 text-center">
 	<table class="table table-striped">
@@ -119,11 +119,9 @@ $ligne_titre = $sql->fetch();
 		</tbody>
 	</table>
       </div>
-    </div>
-   
+    </div>   
         <div class="row text-center">
-          <div class="col-xs-3 jumbotron">
-          	<span class="glyphicon glyphicon-road"></span>
+          <div class="col-xs-3">- - 
           </div>
           <div class="text-center col-xs-9">
            <div class="jumbotron"> 
@@ -144,8 +142,7 @@ $ligne_titre = $sql->fetch();
 </div>
   <!-- / CONTAINER--> 
 </section>
-<div class="well text-center"> ??? </div>
-
+<div class="well text-center"><span class="glyphicon glyphicon-leaf"></span></div>
 <!-- FOOTER -->
 	<?php include("include_footer.php"); ?>
 <!-- / FOOTER --> 

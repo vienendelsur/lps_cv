@@ -57,10 +57,10 @@ if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
 		$ligne_utilisateur = $sql->fetch();
 	?>
 <title>Modification d'une compétence : <?php echo $ligne_utilisateur['pseudo']; ?></title>
-
+<!--CKEditor-->
+<script src="//cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.css">
-
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -69,45 +69,7 @@ if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
     <![endif]-->
 </head>
 <body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid"> 
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand" href="index.php">Admin : <?php echo $ligne_utilisateur['pseudo']; ?></a> </div>
-    
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a> </li>
-        <li><a href="#">Link</a> </li>
-      </ul>
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a> </li>
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Insertions <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="competences.php">Compétences</a> </li>
-            <li><a href="experiences.php">Expériences</a> </li>
-            <li><a href="formations.php">Formations</a> </li>
-            <li><a href="intertitres.php">Intertitres</a> </li>
-            <li><a href="loisirs.php">Loisirs</a> </li>
-            <li><a href="realisations.php">Réalisations</a> </li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Déconnexion</a> </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <!-- /.navbar-collapse --> 
-  </div>
-  <!-- /.container-fluid --> 
-</nav>
+<?php include("include_nav.php"); ?>
 
 <!-- HEADER -->
 <header>
@@ -123,14 +85,14 @@ $ligne_titre = $sql->fetch();
   <div class="row">
    
     <div class="col-lg-12 page-header text-center">
-      <h2>Mise à jour d'une expérience</h2>
+      <h2>Mise à jour : expérience pro</h2>
     </div>
   </div>
   <div class="container">
       
 <div class="row text-center">
           <div class="col-xs-3 jumbotron">
-          	<h1><span class="glyphicon glyphicon-send"></span></h1>
+          	<span class="glyphicon glyphicon-send"></span>
   </div>
           <div class="text-center col-xs-9">
            <div class="jumbotron"> 
@@ -141,10 +103,13 @@ $ligne_titre = $sql->fetch();
 			<input type="text" name="titre_e" class="form-control" value="<?php echo $ligne_experience['titre_e']; ?>">
 			<label for="dates_e">Dates</label>
 			<input type="text" name="dates_e" class="form-control" value="<?php echo $ligne_experience['dates_e']; ?>">
-			<label for="sous_titres_e">sous-titre</label>
+			<label for="sous_titres_e">Sous-titre</label>
 			<input type="text" name="sous_titre_e" class="form-control" value="<?php echo $ligne_experience['sous_titre_e']; ?>">
 			<label for="description_e">Description</label>
-			<textarea name="description_e" cols="80" rows="10" maxlength="200" id="description_e"><?php echo $ligne_experience['description_e']; ?></textarea>
+			<textarea name="description_e" class="form-control" cols="80" rows="10" maxlength="200" id="description_e"><?php echo $ligne_experience['description_e']; ?></textarea>
+			 <script>
+            		CKEDITOR.replace( 'description_e' );
+        	</script>
 			<input hidden name="id_experience" value="<?php echo $ligne_experience['id_experience']; ?>">
 		</div>
               <input type="submit" value="Mettre à jour" class="btn btn-primary btn-lg" style="margin-top: 10px;">

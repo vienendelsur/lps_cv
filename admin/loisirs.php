@@ -182,7 +182,7 @@ $ligne_titre = $sql->fetch();
 </div>
   <!-- / CONTAINER--> 
 </section>
-<div class="well text-center"> ??? </div>
+<div class="well text-center"><span class="glyphicon glyphicon-leaf"></span></div>
 
 <!-- FOOTER -->
 	<?php include("include_footer.php"); ?>
