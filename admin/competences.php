@@ -33,7 +33,8 @@ if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
 		if(isset($_POST['competence'])){//si on récupère une nelle compétence
 			if($_POST['competence']!=''){// si compétence n'est pas vide
 				$competence = addslashes($_POST['competence']);
-				$pdoCV->exec(" INSERT INTO t_competences VALUES (NULL, '$competence', '$id_utilisateur') ");//mettre $id_utilisateur quand on l'aura en variable de session
+				$niveau_c = addslashes($_POST['niveau_c']);
+				$pdoCV->exec(" INSERT INTO t_competences VALUES (NULL, '$competence', '$niveau_c', '$id_utilisateur') ");//mettre $id_utilisateur quand on l'aura en variable de session
 				header("location: ../admin/competences.php");
 				exit();
 			}//ferme le if
@@ -57,6 +58,9 @@ if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
 	<?php
 		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='$id_utilisateur' ");
 		$ligne_utilisateur = $sql->fetch();
+	
+		$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='$id_utilisateur' ");
+		$ligne_titre = $sql->fetch();
 	?>
 <title>Admin : modification d'une compétence <?php echo $ligne_utilisateur['pseudo']; ?></title>
 
@@ -74,10 +78,7 @@ if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
 <?php include("include_nav.php"); ?>
 <!-- HEADER -->
 <header>
- <?php 
-	$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='$id_utilisateur' ");
-$ligne_titre = $sql->fetch();
-	?>
+...
 </header>
 <!-- / HEADER --> 
 
@@ -104,12 +105,14 @@ $ligne_titre = $sql->fetch();
 		<tbody>
 		<tr class="info">
 			<th scope="col">compétences</th>
+			<th scope="col">niveau</th>
 			<th scope="col">modifier</th>
 			<th scope="col">supprimer</th>
 		</tr>
 		<tr>
 			<?php while ($ligne_competence = $sql->fetch()) { ?>
 			<td><?php echo $ligne_competence['competence']; ?></td>
+			<td><?php echo $ligne_competence['niveau_c']; ?></td>
 			<td><a href="modif_competence.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
 			<td>
 <a class="supr" href="competences.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>">
@@ -130,6 +133,10 @@ $ligne_titre = $sql->fetch();
               <div class="form-group">
                 <label for="competence">Compétence</label>
                 <input type="text" name="competence" class="form-control" id="competence" placeholder="insérez une compétence" required>
+              </div>
+              <div class="form-group">
+                <label for="niveau_c">Niveau (en %)</label>
+                <input type="text" name="niveau_c" class="form-control" id="competence" placeholder="insérez le niveau" required>
               </div>
               <input type="submit" value="Envoyez" class="btn btn-primary btn-lg" style="margin-top: 10px;">
             </form>

@@ -6,11 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
-		$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
-		$ligne_utilisateur = $sql->fetch();
+	$sql = $pdoCV->query(" SELECT * FROM t_utilisateurs WHERE id_utilisateur ='1' ");
+	$ligne_utilisateur = $sql->fetch();
 
-		$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='1' ");
-		$ligne_titre_cv = $sql->fetch(); 
+	$sql = $pdoCV->query(" SELECT * FROM t_titres_cv WHERE utilisateur_id ='1' ");
+	$ligne_titre_cv = $sql->fetch();
+	
+	$sql = $pdoCV->query(" SELECT * FROM t_competences WHERE utilisateur_id = '1' ORDER BY id_competence ASC");
+	$ligne_competence = $sql->fetch();
 ?>
 <title>Portfolio <?php echo $ligne_utilisateur['prenom'].' '.$ligne_utilisateur['nom']; ?></title>
 
@@ -49,43 +52,41 @@
       <div class="col-xs-5 well">
         <div class="row">
           <div class="col-lg-6">
-            <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> <?php echo $ligne_utilisateur['telephone']; ?></h4>
+            <h5><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> <?php echo $ligne_utilisateur['telephone']; ?></h5>
           </div>
           <div class="col-lg-6">
-            <h4><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <?php echo $ligne_utilisateur['email']; ?></h4>
+            <h5><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> <?php echo $ligne_utilisateur['email']; ?></h5>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <?php echo $ligne_utilisateur['adresse'].' '.$ligne_utilisateur['code_postal'].' '.$ligne_utilisateur['ville']; ?></h4>
           </div>
-          <div class="col-lg-6">
-            <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> 123-456-7890</h4>
-          </div>
-        </div>
+</div>
       </div>
     </div>
     <hr>
     <div class="row">
       <div class="col-sm-8 col-lg-7">
-        <h2>Education</h2>
+        <h2>Expériences pro</h2>
+        <?php
+		  $sql = $pdoCV->prepare(" SELECT * FROM t_experiences WHERE utilisateur_id = '1' ORDER BY id_experience ASC ");// prépare la requête
+		  $sql->execute(); // exécute-la
+		  $nbr_experiences = $sql->rowCount(); //compte les lignes
+			//$ligne_experience = $sql->fetch();
+		  ?>
         <hr>
+        <?php while ($ligne_experience = $sql->fetch()) { ?>
         <div class="row">
-        	<div class="col-xs-6"><h4>College of Web Design</h4></div>
+        	<div class="col-xs-6"><h4><?php echo $ligne_experience['titre_e']; ?></h4></div>
         	<div class="col-xs-6">
-        	  <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Jan 2002 - Dec 2006</h4>
+        	  <h5 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <?php echo $ligne_experience['dates_e']; ?></h5>
         	</div>
         </div>
-        <h4><span class="label label-default">Bachelors</span></h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, recusandae, corporis, tempore nam fugit deleniti sequi excepturi quod repellat laboriosam soluta laudantium amet dicta non ratione distinctio nihil dignissimos esse!</p>
-        <div class="row">
-          <div class="col-xs-6">
-            <h4>University of Web Design</h4>
-          </div>
-          <div class="col-xs-6">
-            <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Jan 2006 - Dec 2008</h4>
-          </div>
-        </div>
+        <h4><span class="label label-default"> <?php echo $ligne_experience['sous_titre_e']; ?></span></h4>
+        <?php echo $ligne_experience['description_e']; ?>
+        <?php } ?>
+        
         <h4><span class="label label-default">Masters</span></h4>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, recusandae, corporis, tempore nam fugit deleniti sequi excepturi quod repellat laboriosam soluta laudantium amet dicta non ratione distinctio nihil dignissimos esse!</p>
 </div>
@@ -94,7 +95,7 @@
         <hr>
         <!-- Green Progress Bar -->
         <div class="progress">
-          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%"> HTML</div>
+          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo $ligne_competence['niveau_c']; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ligne_competence['niveau_c']; ?>%"><?php echo $ligne_competence['competence']; ?></div>
         </div>
         <!-- Blue Progress Bar -->
         <div class="progress">
