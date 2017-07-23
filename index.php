@@ -68,7 +68,7 @@
     <hr>
     <div class="row">
       <div class="col-sm-8 col-lg-7">
-        <h2>Expériences pro</h2>
+        <h2>Formations &amp; diplômes</h2>
         <?php
 		  $sql = $pdoCV->prepare(" SELECT * FROM t_experiences WHERE utilisateur_id = '1' ORDER BY id_experience ASC ");// prépare la requête
 		  $sql->execute(); // exécute-la
@@ -121,43 +121,29 @@
 </div>
     </div>
     <hr>
-    <h2>Work Experience</h2>
+    <h2>Expériences pro</h2>
+    <?php
+		  $sql = $pdoCV->prepare(" SELECT * FROM t_experiences WHERE utilisateur_id = '1' ORDER BY id_experience ASC ");// prépare la requête
+		  $sql->execute(); // exécute-la
+		  $nbr_experiences = $sql->rowCount(); //compte les lignes
+			//$ligne_experience = $sql->fetch();
+		  ?>
 <hr>
     <div class="row">
+      <?php while ($ligne_experience = $sql->fetch()) { ?>
       <div class="col-lg-6">
         <div class="row">
           <div class="col-xs-5">
-            <h4>ABC Corp.</h4>
+            <h4><?php echo $ligne_experience['titre_e']; ?></h4>
           </div>
 <div class="col-xs-5">
-            <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Jan 2002 - Dec 2006</h4>
+            <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <?php echo $ligne_experience['dates_e']; ?></h4>
           </div>
         </div>
-        <h4><span class="label label-default">Web Developer</span></h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, recusandae, corporis, tempore nam fugit deleniti sequi excepturi quod repellat laboriosam soluta laudantium amet dicta non ratione distinctio nihil dignissimos esse!</p>
-        <ul>
-        	<li>Lorem ipsum dolor sit amet.</li>
-        	<li>Lorem ipsum dolor sit amet, consectetur.</li>
-        	<li>Lorem ipsum dolor sit amet, consectetur adipisicing.</li>
-        </ul>
+        <h4><span class="label label-default"><?php echo $ligne_experience['sous_titre_e']; ?></span></h4>
+        <?php echo $ligne_experience['description_e']; ?>
       </div>
-      <div class="col-lg-6">
-        <div class="row">
-          <div class="col-xs-5">
-            <h4>XYZ Corp.</h4>
-          </div>
-          <div class="col-xs-6">
-            <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Jan 2002 - Dec 2006</h4>
-          </div>
-        </div>
-        <h4><span class="label label-default">Senior Web Developer</span></h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, recusandae, corporis, tempore nam fugit deleniti sequi excepturi quod repellat laboriosam soluta laudantium amet dicta non ratione distinctio nihil dignissimos esse!</p>
-        <ul>
-          <li>Lorem ipsum dolor sit amet.</li>
-          <li>Lorem ipsum dolor sit amet, consectetur.</li>
-          <li>Lorem ipsum dolor sit amet, consectetur adipisicing.</li>
-        </ul>
-      </div>
+      <?php } ?>
     </div>
     <hr>
     <h2>Portfolio</h2>
