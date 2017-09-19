@@ -85,7 +85,7 @@ $ligne_titre = $sql->fetch();
   <div class="row">
    
     <div class="col-lg-12 page-header text-center">
-      <h2>Mise à jour : expérience pro</h2>
+      <h2>Mise à jour : expérience pro de pisola</h2>
     </div>
   </div>
   <div class="container">
