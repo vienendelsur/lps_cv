@@ -116,7 +116,7 @@ if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
 			<td><a href="modif_competence.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
 			<td>
 <a class="supr" href="competences.php?id_competence=<?php echo $ligne_competence['id_competence']; ?>">
-			<span class="glyphicon glyphicon-trash"></span></a></span></td>
+			<span class="glyphicon glyphicon-trash"></span></a></td>
 		</tr>
 			<?php } ?>
 		</tbody>

@@ -22,7 +22,7 @@ if(isset($_GET['quitter'])){// on récupère le terme quitter dans l'url
 		session_destroy();
 	header('location:../index.php');
 }
-	?>
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
