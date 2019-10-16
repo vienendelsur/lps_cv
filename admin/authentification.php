@@ -2,9 +2,11 @@
 <?php	
 session_start();// à mettre dans toutes les pages de l'admin ; SESSION et authentification 
 	$msg_authentification_erreur='';// on initialise la variable en cas d'erreur
+
 if(isset($_POST['connexion'])){// on envoie le form avec le name du bouton (on a cliqué sur le bouton)
 	$email = addslashes($_POST['email']);
 	$mdp = addslashes($_POST['mdp']);
+    
 	$sql = $pdoCV->prepare(" SELECT * FROM t_utilisateurs WHERE email='$email' AND mdp='$mdp' ");// on vérifie courriel et mdp et ...
 	$sql->execute();
 	$nbr_utilisateur = $sql->rowCount();//on compte s'il est ds la table, le compte répond 1 s'il y est et 0 s'il n'y est pas

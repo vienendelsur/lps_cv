@@ -1,12 +1,14 @@
 <?php require '../connexion/connexion.php';
 
 session_start();// à mettre dans toutes les pages de l'admin ; SESSION et authentification
+
 	if(isset($_SESSION['connexion']) && $_SESSION['connexion']=='connecté'){
 		$id_utilisateur=$_SESSION['id_utilisateur'];
 		$prenom=$_SESSION['prenom'];	
 		$nom=$_SESSION['nom'];
 		
 		//echo $_SESSION['connexion'];
+        //var_dump('$_SESSION');
 		
 	}else{//l'utilisateur n'est pas connecté
 		header('location:authentification.php');
